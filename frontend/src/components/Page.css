@@ -1,0 +1,52 @@
+/* Link 설정, Link 태그가 a 태그로 렌더링됨 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.navigator.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.navigator.flex button {
+  padding: 4px 8px;
+}
+.navigator {
+  border: 1.5px solid #888888;
+}
+
+.bulletin-board-table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1.5px solid #888888;
+  text-align: center;
+}
+.bulletin-board-table th:nth-child(1),
+.bulletin-board-table td:nth-child(1) {
+  width: 30px;
+}
+.bulletin-board-table th:nth-child(2),
+.bulletin-board-table td:nth-child(2) {
+}
+.bulletin-board-table th:nth-child(3),
+.bulletin-board-table td:nth-child(3),
+.bulletin-board-table th:nth-child(4),
+.bulletin-board-table td:nth-child(4) {
+  width: 50px;
+}
+.bulletin-board-table th,
+.bulletin-board-table td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+}
+
+.bulletin-board-table button {
+  padding: 4px 8px;
+}
