@@ -1,8 +1,8 @@
-package com.example.postbackend.presentation.controller;
+package com.example.postbackend.presentation.controller.post;
 
-import com.example.postbackend.application.SimplePostService;
-import com.example.postbackend.presentation.dto.PostReadResponseDto;
-import com.example.postbackend.presentation.dto.PostsReadResponseDto;
+import com.example.postbackend.application.post.SimplePostService;
+import com.example.postbackend.presentation.dto.post.response.PostReadResponseDto;
+import com.example.postbackend.presentation.dto.post.response.PostsReadResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

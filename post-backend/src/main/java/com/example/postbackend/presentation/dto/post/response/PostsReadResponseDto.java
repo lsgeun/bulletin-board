@@ -1,4 +1,4 @@
-package com.example.postbackend.presentation.dto;
+package com.example.postbackend.presentation.dto.post.response;
 
 import com.example.postbackend.domain.post.Post;
 

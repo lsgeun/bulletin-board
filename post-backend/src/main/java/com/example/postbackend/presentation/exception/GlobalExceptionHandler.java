@@ -1,8 +1,8 @@
-package com.example.postbackend.presentation.controller;
+package com.example.postbackend.presentation.exception;
 
-import com.example.postbackend.domain.exception.*;
+import com.example.postbackend.domain.post.exception.*;
 import com.example.postbackend.presentation.dto.ErrorMessageDto;
-import com.example.postbackend.presentation.dto.PostsReadResponseDto;
+import com.example.postbackend.presentation.dto.post.response.PostsReadResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
