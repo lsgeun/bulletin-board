@@ -1,9 +1,9 @@
-package com.example.postbackend.application;
+package com.example.postbackend.application.post;
 
 import com.example.postbackend.domain.post.Post;
 import com.example.postbackend.domain.post.PostRepository;
-import com.example.postbackend.presentation.dto.PostReadResponseDto;
-import com.example.postbackend.presentation.dto.PostsReadResponseDto;
+import com.example.postbackend.presentation.dto.post.response.PostReadResponseDto;
+import com.example.postbackend.presentation.dto.post.response.PostsReadResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

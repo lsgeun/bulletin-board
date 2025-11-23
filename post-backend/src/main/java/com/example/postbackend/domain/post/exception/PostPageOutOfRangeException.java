@@ -1,4 +1,4 @@
-package com.example.postbackend.domain.exception;
+package com.example.postbackend.domain.post.exception;
 
 public class PostPageOutOfRangeException extends PostException {
     private final int page;

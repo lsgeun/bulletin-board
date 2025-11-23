@@ -1,8 +1,8 @@
-package com.example.postbackend.infrastructure;
+package com.example.postbackend.infrastructure.post;
 
-import com.example.postbackend.domain.exception.*;
 import com.example.postbackend.domain.post.Post;
 import com.example.postbackend.domain.post.PostRepository;
+import com.example.postbackend.domain.post.exception.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 

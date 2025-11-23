@@ -1,4 +1,6 @@
-package com.example.postbackend.domain.exception;
+package com.example.postbackend.domain.post.exception;
+
+import com.example.postbackend.domain.exception.InfrastructureException;
 
 public class PostDeleteInfrastructureException extends InfrastructureException {
     private final Long id;
