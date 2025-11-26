@@ -4,7 +4,7 @@ public class PostNotFoundException extends PostException {
     private final Long id;
 
     public PostNotFoundException(Long id) {
-        super("Post 값을 찾지 못했습니다.");
+        super("요청한 게시글을 찾을 수 없습니다.", "POST_NOT_FOUND");
         this.id = id;
     }
 

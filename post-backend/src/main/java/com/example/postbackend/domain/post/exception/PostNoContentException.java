@@ -1,14 +1,14 @@
 package com.example.postbackend.domain.post.exception;
 
 public class PostNoContentException extends PostException {
-    private final int page;
+    private final Integer page;
 
-    public PostNoContentException(int page) {
-        super("컨텐츠가 존재하지 않습니다.");
+    public PostNoContentException(Integer page) {
+        super("게시글이 존재하지 않습니다.", "POST_NO_CONTENT");
         this.page = page;
     }
 
-    public int getPage() {
+    public Integer getPage() {
         return page;
     }
 }

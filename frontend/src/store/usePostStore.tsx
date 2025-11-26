@@ -1,35 +1,64 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { PostStore } from '@/types/postType';
+import cloneDeep from 'lodash/cloneDeep';
 
-export const usePostStore = create<PostStore>(set => ({
-  posts: [],
-  getPostsByPage: (page = 1, pageSize = 10) => {
-    fetch(`http://localhost:8080/post?page=${page}&pageSize=${pageSize}`, {
-      method: 'GET',
-      headers: { ACCEPT: 'application/json' },
-    })
-      .then(response => {
-        if (response.status === 400) {
-          return response.json().then(errorData => {
-            set({ posts: errorData.posts });
-            throw new Error(errorData.message + `: ${errorData.page}`);
-          });
-        } else if (response.status === 200) {
-          return response.json();
-        }
-      })
-      .then(data => {
-        set({ posts: data.posts });
-        console.log(data.message + `: ${data.page}`);
-      })
-      .catch(error => {
-        console.log(error.message);
-      });
+export const usePostStore = create<PostStore>((set, get) => ({
+  page: 1,
+  setPage: page => {
+    set({ page });
   },
-  deletePostById: id => {
-    fetch(`http://localhost:8080/post/${id}`, {
-      method: 'DELETE',
-      headers: { ACCEPT: 'application/json' },
-    }).then();
+  pageSize: 10,
+  setPageSize: pageSize => {
+    set({ pageSize });
+  },
+  posts: [],
+  getPostById: (id = 1) => {},
+  getPostsByPage: async (page = 1, pageSize = 10) => {
+    const previousPosts = cloneDeep(get().posts);
+
+    try {
+      const response = await fetch(`http://localhost:8080/post?page=${page}&pageSize=${pageSize}`, {
+        method: 'GET',
+        headers: { ACCEPT: 'application/json' },
+      });
+      const data = await response.json();
+
+      if (response.status === 200) {
+        set({ posts: data.posts });
+        console.log(data.message + ` page: ${data.page}`);
+      } else if (response.status === 400) {
+        set({ posts: data.posts });
+        throw new Error(data.message + ` page: ${data.page}`);
+      } else if (response.status === 500) {
+        throw new Error(data.message);
+      } else {
+        throw new Error('알 수 없는 응답 상태');
+      }
+    } catch (error) {
+      set({ posts: previousPosts });
+      console.log(error.message);
+    }
+  },
+  deletePostById: async id => {
+    try {
+      const response = await fetch(`http://localhost:8080/post/${id}`, {
+        method: 'DELETE',
+        headers: { ACCEPT: 'application/json' },
+      });
+      const data = await response.json();
+
+      if (response.status === 200) {
+        console.log(data.message);
+      } else if (response.status === 404) {
+        throw new Error(data.message);
+      } else if (response.status === 500) {
+        throw new Error(data.message);
+      } else {
+        throw new Error('알 수 없는 응답 상태');
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 }));
