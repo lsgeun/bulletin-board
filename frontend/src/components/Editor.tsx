@@ -11,6 +11,7 @@ function Editor() {
   const [postTitle, setPostTitle] = useState(currentPost.title);
   const [postContent, setPostContent] = useState(currentPost.content);
   const navigate = useNavigate();
+  const deletePostById = usePostStore(state => state.deletePostById);
 
   return (
     <div className="editor">
@@ -23,9 +24,13 @@ function Editor() {
         >
           홈으로
         </button>
-        <button onClick={() => {
-          navigate(-1);
-        }}>뒤로</button>
+        <button
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          뒤로
+        </button>
         <div>
           <h1>제목</h1>
           <textarea value={postTitle} onChange={e => setPostTitle(e.target.value)}></textarea>
@@ -36,7 +41,14 @@ function Editor() {
         </div>
         <div>
           <button>수정</button>
-          <button>삭제</button>
+          <button
+            onClick={() => {
+              deletePostById(postId);
+              navigate(-1);
+            }}
+          >
+            삭제
+          </button>
         </div>
       </nav>
     </div>

@@ -13,6 +13,8 @@ function Page() {
     getPostsByPage(page, pageSize);
   }, [getPostsByPage, page, pageSize]);
 
+  const deletePostById = usePostStore(state => state.deletePostById);
+
   return (
     <div className="page">
       <table className="bulletin-board-table">
@@ -33,7 +35,14 @@ function Page() {
                 </Link>
               </td>
               <td>
-                <button>삭제</button>
+                <button
+                  onClick={() => {
+                    deletePostById(p.id);
+                    getPostsByPage(page, pageSize);
+                  }}
+                >
+                  삭제
+                </button>
               </td>
             </tr>
           ))}

@@ -23,7 +23,7 @@ public class InMemoryPostRepository implements PostRepository {
     }
 
     @Override
-    public Post findById(Long id) {
+    public Post findById(long id) {
         return posts.stream()
                 .filter(post -> post.sameId(id))
                 .findFirst()
@@ -47,6 +47,7 @@ public class InMemoryPostRepository implements PostRepository {
         int curPageFirstPostIndex = posts.size() - page * pageSize;
         int prevPageFirstPostIndex = posts.size() - (page - 1) * pageSize;
         List<Post> pageContent;
+
         if (1 <= page && page < lastPage) {
             pageContent = new ArrayList<>(posts.subList(curPageFirstPostIndex, prevPageFirstPostIndex));
         } else { // page == lastPage
@@ -59,18 +60,19 @@ public class InMemoryPostRepository implements PostRepository {
         }
 
         Collections.reverse(pageContent);
+
         return pageContent;
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         try {
             boolean removed = posts.removeIf(p -> p.sameId(id));
             if (!removed) {
                 throw new PostNotFoundException(id);
             }
         } catch (Exception e) {
-            throw new PostDeleteInfrastructureException(id, e);
+            throw new PostDeleteFailureInfrastructureException(id, e);
         }
     }
 }

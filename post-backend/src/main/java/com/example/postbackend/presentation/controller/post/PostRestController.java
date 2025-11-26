@@ -1,22 +1,25 @@
 package com.example.postbackend.presentation.controller.post;
 
 import com.example.postbackend.application.post.SimplePostService;
+import com.example.postbackend.presentation.dto.post.response.PostDeleteResponseDto;
 import com.example.postbackend.presentation.dto.post.response.PostReadResponseDto;
+import com.example.postbackend.presentation.dto.post.response.PostUpdateResponseDto;
 import com.example.postbackend.presentation.dto.post.response.PostsReadResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PostRestController {
-    private SimplePostService simplePostService;
+    private final SimplePostService simplePostService;
 
     @Autowired
     PostRestController(SimplePostService simplePostService) {
         this.simplePostService = simplePostService;
     }
 
-    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
+    @GetMapping("/post/{id}")
     public ResponseEntity<PostReadResponseDto> getPostById(@PathVariable String id) {
         PostReadResponseDto postReadResponseDto = simplePostService.findPost(Long.valueOf(id));
         return ResponseEntity.ok(postReadResponseDto);
@@ -31,14 +34,19 @@ public class PostRestController {
         return ResponseEntity.ok(postsReadResponseDto);
     }
 
-    @RequestMapping(value = "/post/{id}", method = RequestMethod.POST)
-    public ResponseEntity<String> updatePostById(@PathVariable String id) {
+    @DeleteMapping("/post/{id}")
+    public ResponseEntity<PostDeleteResponseDto> deletePostById(@PathVariable Long id) {
+        PostDeleteResponseDto postDeleteResponseDto = simplePostService.deletePost(id);
+        return new ResponseEntity<>(postDeleteResponseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/post/{id}")
+    public ResponseEntity<String> createPostById(@PathVariable String id) {
         return ResponseEntity.ok(null);
     }
 
-    @DeleteMapping("/post/{id}")
-    public ResponseEntity<Void> deletePostById(@PathVariable Long id) {
-        simplePostService.deletePost(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping("/post/{id}")
+    public ResponseEntity<PostUpdateResponseDto> updatePostById(@PathVariable String id) {
+        return ResponseEntity.ok(null);
     }
 }
