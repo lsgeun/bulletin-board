@@ -4,20 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostCreateRequestDto {
-    private final String title;
-    private final String content;
+    private final PostItemRequestDto post;
 
     @JsonCreator
     public PostCreateRequestDto(@JsonProperty("title") String title, @JsonProperty("content") String content) {
-        this.title = title;
-        this.content = content;
+        this.post = new PostItemRequestDto(title, content);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
+    public PostItemRequestDto getPost() {
+        return this.post;
     }
 }

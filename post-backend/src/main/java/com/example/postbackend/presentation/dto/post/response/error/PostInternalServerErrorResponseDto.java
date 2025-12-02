@@ -1,9 +1,9 @@
-package com.example.postbackend.presentation.dto.post.response;
+package com.example.postbackend.presentation.dto.post.response.error;
 
 import com.example.postbackend.presentation.dto.response.BaseResponseDto;
 
-public class PostDeleteResponseDto extends BaseResponseDto {
-    private PostDeleteResponseDto(Builder builder) {
+public class PostInternalServerErrorResponseDto extends BaseResponseDto {
+    protected PostInternalServerErrorResponseDto(Builder builder) {
         super(builder);
     }
 
@@ -18,8 +18,8 @@ public class PostDeleteResponseDto extends BaseResponseDto {
         }
 
         @Override
-        public PostDeleteResponseDto build() {
-            return new PostDeleteResponseDto(this);
+        public PostInternalServerErrorResponseDto build() {
+            return new PostInternalServerErrorResponseDto(this);
         }
     }
 }

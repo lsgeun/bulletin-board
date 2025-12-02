@@ -2,7 +2,7 @@ package com.example.postbackend.presentation.exception;
 
 import com.example.postbackend.domain.exception.InternalServerException;
 import com.example.postbackend.domain.post.exception.*;
-import com.example.postbackend.presentation.dto.post.response.error.PostErrorResponseDto;
+import com.example.postbackend.presentation.dto.post.response.error.PostInternalServerErrorResponseDto;
 import com.example.postbackend.presentation.dto.post.response.PostDeleteResponseDto;
 import com.example.postbackend.presentation.dto.post.response.PostsReadResponseDto;
 import com.example.postbackend.presentation.dto.post.response.error.PostNotFoundResponseDto;
@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
         log.warn("post 저장소에 해당 게시글이 존재하지 않음, id: {}", ex.getId(), ex);
 
         PostNotFoundResponseDto postNotFoundResponseDto = new PostNotFoundResponseDto.Builder()
+                .code(ex.getErrorCode())
                 .message(ex.getMessage())
-                .errorCode(ex.getErrorCode())
                 .id(ex.getId())
                 .build();
 
@@ -41,8 +41,8 @@ public class GlobalExceptionHandler {
         log.warn("범위를 초과한 양의 페이지, page: {}", ex.getPage(), ex);
 
         PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+                .code(ex.getErrorCode())
                 .message(ex.getMessage())
-                .errorCode(ex.getErrorCode())
                 .posts(Collections.emptyList())
                 .page(ex.getPage())
                 .build();
@@ -57,8 +57,8 @@ public class GlobalExceptionHandler {
         log.info("post 저장소에 게시글이 하나도 없음, page: {}", ex.getPage(), ex);
 
         PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+                .code(ex.getErrorCode())
                 .message(ex.getMessage())
-                .errorCode(ex.getErrorCode())
                 .posts(Collections.emptyList())
                 .page(ex.getPage())
                 .build();
@@ -73,8 +73,8 @@ public class GlobalExceptionHandler {
         log.error("음의 페이지, page: {}", ex.getPage(), ex);
 
         PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+                .code(ex.getErrorCode())
                 .message(ex.getMessage())
-                .errorCode(ex.getErrorCode())
                 .posts(Collections.emptyList())
                 .page(ex.getPage())
                 .build();
@@ -89,26 +89,26 @@ public class GlobalExceptionHandler {
         log.error("post 저장소에서 게시물 삭제 실패, id: {}", ex.getId(), ex.getCause());
 
         PostDeleteResponseDto postDeleteResponseDto = new PostDeleteResponseDto.Builder()
+                .code(ex.getErrorCode())
                 .message(ex.getMessage())
-                .errorCode(ex.getErrorCode())
                 .build();
 
         return new ResponseEntity<>(postDeleteResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<PostErrorResponseDto> handleUnexpectedException(
+    public ResponseEntity<PostInternalServerErrorResponseDto> handleUnexpectedException(
             Exception ex
     ) {
-        InternalServerException unexpectedException = new InternalServerException(ex.getCause());
+        InternalServerException internalServerException = new InternalServerException(ex.getCause());
 
-        log.error("예기치 못한 에러", unexpectedException.getCause());
+        log.error("예기치 못한 에러", internalServerException.getCause());
 
-        PostErrorResponseDto postErrorResponseDto = new PostErrorResponseDto.Builder()
-                .message(unexpectedException.getMessage())
-                .errorCode(unexpectedException.getErrorCode())
+        PostInternalServerErrorResponseDto postInternalServerErrorResponseDto = new PostInternalServerErrorResponseDto.Builder()
+                .code(internalServerException.getErrorCode())
+                .message(internalServerException.getMessage())
                 .build();
 
-        return new ResponseEntity<>(postErrorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(postInternalServerErrorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

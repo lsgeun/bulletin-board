@@ -3,29 +3,29 @@ package com.example.postbackend.presentation.dto.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public abstract class ResponseDto {
-    private String errorCode;
+public abstract class BaseResponseDto {
+    private String code;
     private String message;
 
-    protected ResponseDto(Builder<?> builder) {
-        this.errorCode = builder.errorCode;
+    protected BaseResponseDto(Builder<?> builder) {
+        this.code = builder.code;
         this.message = builder.message;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getCode() {
+        return this.code;
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     public static abstract class Builder<T extends Builder<T>> {
-        private String errorCode;
+        private String code;
         private String message;
 
-        public T errorCode(String errorCode) {
-            this.errorCode = errorCode;
+        public T code(String code) {
+            this.code = code;
             return self();
         }
 
@@ -36,6 +36,6 @@ public abstract class ResponseDto {
 
         protected abstract T self();
 
-        public abstract ResponseDto build();
+        public abstract BaseResponseDto build();
     }
 }

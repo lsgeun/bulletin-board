@@ -9,6 +9,6 @@ public class PostNotFoundException extends PostException {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 }

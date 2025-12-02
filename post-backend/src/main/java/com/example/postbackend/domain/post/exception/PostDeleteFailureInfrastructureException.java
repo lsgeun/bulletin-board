@@ -9,6 +9,6 @@ public class PostDeleteFailureInfrastructureException extends PostInfraStructure
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 }

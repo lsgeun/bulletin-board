@@ -9,6 +9,6 @@ public class PostPageOutOfRangeException extends PostException {
     }
 
     public Integer getPage() {
-        return page;
+        return this.page;
     }
 }
