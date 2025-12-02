@@ -9,6 +9,6 @@ public class PostNoContentException extends PostException {
     }
 
     public Integer getPage() {
-        return page;
+        return this.page;
     }
 }

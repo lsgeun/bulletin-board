@@ -1,8 +1,8 @@
 package com.example.postbackend.presentation.dto.post.response.error;
 
-import com.example.postbackend.presentation.dto.response.ResponseDto;
+import com.example.postbackend.presentation.dto.response.BaseResponseDto;
 
-public class PostNotFoundResponseDto extends ResponseDto {
+public class PostNotFoundResponseDto extends BaseResponseDto {
     private Long id;
 
     protected PostNotFoundResponseDto(Builder builder) {
@@ -11,10 +11,14 @@ public class PostNotFoundResponseDto extends ResponseDto {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
-    public static class Builder extends ResponseDto.Builder<Builder> {
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder extends BaseResponseDto.Builder<Builder> {
         private Long id;
 
         public Builder id(Long id) {

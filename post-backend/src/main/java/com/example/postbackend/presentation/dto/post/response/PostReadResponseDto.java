@@ -1,56 +1,28 @@
 package com.example.postbackend.presentation.dto.post.response;
 
-import com.example.postbackend.domain.post.Post;
-import com.example.postbackend.presentation.dto.response.ResponseDto;
+import com.example.postbackend.presentation.dto.response.BaseResponseDto;
 
-public class PostReadResponseDto extends ResponseDto {
-    private Long id;
-    private String title;
-    private String content;
+public class PostReadResponseDto extends BaseResponseDto {
+    private PostItemResponseDto post;
 
     private PostReadResponseDto(Builder builder) {
         super(builder);
-        this.id = builder.id;
-        this.title = builder.title;
-        this.content = builder.content;
+        this.post = builder.post;
     }
 
-    public static PostReadResponseDto.Builder from(Post post) {
-        return new Builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .content(post.getContent());
+    public PostItemResponseDto getPost() {
+        return this.post;
     }
 
-    public Long getId() {
-        return id;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public static class Builder extends BaseResponseDto.Builder<Builder> {
+        private PostItemResponseDto post;
 
-    public String getContent() {
-        return content;
-    }
-
-    public static class Builder extends ResponseDto.Builder<Builder> {
-        private Long id;
-        private String title;
-        private String content;
-
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder title(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public Builder content(String content) {
-            this.content = content;
+        public Builder post(PostItemResponseDto post) {
+            this.post = post;
             return this;
         }
 
