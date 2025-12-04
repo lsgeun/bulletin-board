@@ -92,7 +92,6 @@ public class InMemoryPostRepository implements PostRepository {
 
     @Override
     public Optional<Post> save(Post post) {
-        // create, update 로직 만들기
         if (post.getId() == null) {
             long createId = this.generateNextId();
             Post postToCreate = Post.of(createId, post.getTitle(), post.getContent());
@@ -119,7 +118,7 @@ public class InMemoryPostRepository implements PostRepository {
 
             Optional<Post> updatedPostOptional = postToUpdateOptional;
 
-            return Optional.of(updatedPostOptional.get().deepCopy()); // 수정
+            return Optional.of(updatedPostOptional.get().deepCopy());
         }
     }
 }

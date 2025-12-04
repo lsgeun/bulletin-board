@@ -1,7 +1,7 @@
 package com.example.postbackend.application.post;
 
 import com.example.postbackend.domain.post.Post;
-import com.example.postbackend.domain.post.PostMappper;
+import com.example.postbackend.domain.post.PostMapper;
 import com.example.postbackend.domain.post.PostRepository;
 import com.example.postbackend.domain.post.exception.PostNegativePageException;
 import com.example.postbackend.domain.post.exception.PostNoContentException;
@@ -20,16 +20,16 @@ import java.util.List;
 @Service
 public class SimplePostService {
     private final PostRepository postRepository;
-    private static final Logger log = LoggerFactory.getLogger(SimplePostService.class);
-    private final PostMappper postMappper;
+    private final Logger log = LoggerFactory.getLogger(SimplePostService.class);
+    private final PostMapper postMapper;
 
     @Autowired
     SimplePostService(
             PostRepository postRepository,
-            PostMappper postMappper
+            PostMapper postMapper
     ) {
         this.postRepository = postRepository;
-        this.postMappper = postMappper;
+        this.postMapper = postMapper;
     }
 
     private Post readPostEntity(long id) {
@@ -71,7 +71,7 @@ public class SimplePostService {
 
     private Post updatePostCore(long id, PostUpdateRequestDto postUpdateRequestDto) {
         Post postToUpdate = this.readPostEntity(id);
-        Post postUpdateSpec = this.postMappper.toPost(postUpdateRequestDto);
+        Post postUpdateSpec = this.postMapper.toPost(postUpdateRequestDto);
         postToUpdate.updateTitleAndContent(postUpdateSpec);
 
         Post updatedPost = this.postRepository.save(postToUpdate)
@@ -81,7 +81,7 @@ public class SimplePostService {
     }
 
     private Post createPostEntity(PostCreateRequestDto postCreateRequestDto) {
-        Post postToCreate =  this.postMappper.toPost(postCreateRequestDto);
+        Post postToCreate =  this.postMapper.toPost(postCreateRequestDto);
 
         Post createdPost = this.postRepository.save(postToCreate)
                 .orElseThrow(() -> new PostNotFoundException(0L));
@@ -94,7 +94,7 @@ public class SimplePostService {
 
         log.info("해당 게시글을 성공적으로 읽음, id: {}", post.getId());
 
-        PostReadResponseDto postReadResponseDto = this.postMappper.toPostReadResponseDto(post, "POST_RETRIEVED", "해당 게시글을 찾았습니다.");
+        PostReadResponseDto postReadResponseDto = this.postMapper.toPostReadResponseDto(post, "POST_RETRIEVED", "해당 게시글을 찾았습니다.");
 
         return postReadResponseDto;
     }
@@ -104,7 +104,7 @@ public class SimplePostService {
 
         log.info("해당 페이지를 성공적으로 불러옴, page: {}, pageSize: {}", page, pageSize);
 
-        PostsReadResponseDto postsReadResponseDto = this.postMappper.toPostsReadResponseDto(posts, page, "POSTS_RETRIEVED", "페이지를 성공적으로 불러왔습니다.");
+        PostsReadResponseDto postsReadResponseDto = this.postMapper.toPostsReadResponseDto(posts, page, "POSTS_RETRIEVED", "페이지를 성공적으로 불러왔습니다.");
 
         return postsReadResponseDto;
     }

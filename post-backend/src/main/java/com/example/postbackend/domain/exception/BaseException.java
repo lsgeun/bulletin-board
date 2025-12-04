@@ -1,5 +1,8 @@
 package com.example.postbackend.domain.exception;
 
+import lombok.Getter;
+
+@Getter
 public abstract class BaseException extends RuntimeException {
     private final String errorCode;
 
@@ -11,9 +14,5 @@ public abstract class BaseException extends RuntimeException {
     protected BaseException(String message, Throwable cause, String errorCode) {
         super(message, cause);
         this.errorCode = errorCode;
-    }
-
-    public String getErrorCode() {
-        return this.errorCode;
     }
 }
