@@ -1,5 +1,8 @@
 package com.example.postbackend.domain.post.exception;
 
+import lombok.Getter;
+
+@Getter
 public class PostDeleteFailureInfrastructureException extends PostInfraStructureException {
     private final Long id;
 
@@ -8,7 +11,4 @@ public class PostDeleteFailureInfrastructureException extends PostInfraStructure
         this.id = id;
     }
 
-    public Long getId() {
-        return this.id;
-    }
 }

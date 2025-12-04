@@ -1,27 +1,15 @@
 package com.example.postbackend.domain.post;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Post {
     private Long id;
     private String title;
     private String content;
-
-    private Post(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
 
     public boolean sameId(Long id) {
         return this.id.equals(id);

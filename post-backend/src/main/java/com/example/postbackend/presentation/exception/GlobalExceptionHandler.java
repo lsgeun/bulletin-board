@@ -17,7 +17,7 @@ import java.util.Collections;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(PostNotFoundException.class)
     public ResponseEntity<PostNotFoundResponseDto> handlePostNotFoundException(
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     ) {
         log.warn("post 저장소에 해당 게시글이 존재하지 않음, id: {}", ex.getId(), ex);
 
-        PostNotFoundResponseDto postNotFoundResponseDto = new PostNotFoundResponseDto.Builder()
+        PostNotFoundResponseDto postNotFoundResponseDto = PostNotFoundResponseDto.builder()
                 .code(ex.getErrorCode())
                 .message(ex.getMessage())
                 .id(ex.getId())
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     ) {
         log.warn("범위를 초과한 양의 페이지, page: {}", ex.getPage(), ex);
 
-        PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+        PostsReadResponseDto postsReadResponseDto = PostsReadResponseDto.builder()
                 .code(ex.getErrorCode())
                 .message(ex.getMessage())
                 .posts(Collections.emptyList())
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
     ) {
         log.info("post 저장소에 게시글이 하나도 없음, page: {}", ex.getPage(), ex);
 
-        PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+        PostsReadResponseDto postsReadResponseDto = PostsReadResponseDto.builder()
                 .code(ex.getErrorCode())
                 .message(ex.getMessage())
                 .posts(Collections.emptyList())
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
     ) {
         log.error("음의 페이지, page: {}", ex.getPage(), ex);
 
-        PostsReadResponseDto postsReadResponseDto = new PostsReadResponseDto.Builder()
+        PostsReadResponseDto postsReadResponseDto = PostsReadResponseDto.builder()
                 .code(ex.getErrorCode())
                 .message(ex.getMessage())
                 .posts(Collections.emptyList())
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
     ) {
         log.error("post 저장소에서 게시물 삭제 실패, id: {}", ex.getId(), ex.getCause());
 
-        PostDeleteResponseDto postDeleteResponseDto = new PostDeleteResponseDto.Builder()
+        PostDeleteResponseDto postDeleteResponseDto = PostDeleteResponseDto.builder()
                 .code(ex.getErrorCode())
                 .message(ex.getMessage())
                 .build();
@@ -104,7 +104,7 @@ public class GlobalExceptionHandler {
 
         log.error("예기치 못한 에러", internalServerException.getCause());
 
-        PostInternalServerErrorResponseDto postInternalServerErrorResponseDto = new PostInternalServerErrorResponseDto.Builder()
+        PostInternalServerErrorResponseDto postInternalServerErrorResponseDto = PostInternalServerErrorResponseDto.builder()
                 .code(internalServerException.getErrorCode())
                 .message(internalServerException.getMessage())
                 .build();
